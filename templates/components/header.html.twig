@@ -1,0 +1,167 @@
+{% block body %}
+    <style>
+        .modal-content {
+            padding: 20px;
+        }
+        .btn {
+            margin: 0 auto;
+            display: block;
+        }
+        .dropdown-item {
+            cursor: pointer;
+        }
+        .error-text {
+            color: red;
+            font-size: 14px;
+            margin-top: 2px;
+            margin-bottom: 2px;
+        }
+    </style>
+    <header id="header" class="header d-flex align-items-center fixed-top">
+        <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+                <h1 class="sitename">Дипломка</h1>
+            </a>
+
+            <nav id="navmenu" class="navmenu">
+                <ul>
+                    <li><a href="#hero" class="active">Головна</a></li>
+                    <li><a href="#about">Цiни</a></li>
+                    <li><a href="#features">Вiдгуки</a></li>
+                    <li><a href="#services">Контакти</a></li>
+                    <li class="dropdown">
+                        <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="#">Dropdown 1</a></li>
+                            <li><a href="#">Dropdown 2</a></li>
+                            <li><a href="#">Dropdown 3</a></li>
+                            <li><a href="#">Dropdown 4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+            </nav>
+
+            {% if app.user %}
+                <div class="dropdown d-flex align-items-center">
+                    <img src="{{ app.user.profileImage ? asset(app.user.profileImage) : asset('assets/img/user.png') }}" alt="Avatar" class="rounded-circle" width="40" height="40" data-bs-toggle="dropdown" aria-expanded="false">
+                    <nav id="navmenu" class="navmenu">
+                        <ul>
+                            <li class="dropdown">
+                                <a href="#"><span>{{ app.user.email }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a class="dropdown-item" href="#">Профіль</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Вийти</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            {% else %}
+                <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Вхід | Реєстрація</a>
+            {% endif %}
+
+        </div>
+    </header>
+
+    <!-- Login modal -->
+    <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="authModalLabel">Авторизація</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" method="POST" action="{{ path('app_login') }}">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Електронна пошта</label>
+                            <input type="email" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
+                                   id="email" name="email" value="{{ last_username|default('') }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
+                                   id="password" name="password" required>
+                            {% if error is defined and error %}
+                                <div class="error-text">{{ error }}</div>
+                            {% endif %}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Вхід</button>
+                    </form>
+                    <hr>
+                    <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
+                        Перейти до реєстрації
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if error is defined and error %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var authModal = new bootstrap.Modal(document.getElementById('authModal'));
+                authModal.show();
+            });
+        </script>
+    {% endif %}
+
+    <!-- Registration modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Реєстрація</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <form id="registerForm" method="POST" action="{{ path('app_register') }}">
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">Електронна пошта</label>
+                            <input type="email" class="form-control" id="registerEmail" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="registerPassword" name="password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerConfirmPassword" class="form-label">Підтвердження пароля</label>
+                            <input type="password" class="form-control" id="registerConfirmPassword" name="confirm_password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Зареєструватися</button>
+                        <hr>
+
+                        <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-dismiss="modal">Назад до авторизації</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("registerForm").addEventListener("submit", function(event) {
+                var password = document.getElementById("registerPassword").value;
+                var confirmPassword = document.getElementById("registerConfirmPassword").value;
+                var errorText = document.getElementById("passwordError");
+
+                if (password !== confirmPassword) {
+                    event.preventDefault();
+                    if (!errorText) {
+                        var errorDiv = document.createElement("div");
+                        errorDiv.id = "passwordError";
+                        errorDiv.className = "error-text";
+                        errorDiv.innerText = "Паролi неiдентичнi";
+                        document.getElementById("registerConfirmPassword").after(errorDiv);
+                    }
+                } else if (errorText) {
+                    errorText.remove();
+                }
+            });
+        });
+    </script>
+{% endblock %}
