@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'components/header.html.twig' %}
+
+    <main class="main">
+
+        <section id="hero" class="hero section">
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+                <div class="row">
+                    <!-- Левый контейнер с отзывами -->
+                    <div class="col-lg-8">
+                        <h2 class="section-title">Відгуки наших клієнтів</h2>
+
+                        <div class="review-item mb-5">
+                            <div class="review-avatar">
+                                <img src="assets/img/avatar-1.webp" alt="User Avatar" class="img-fluid rounded-circle" width="50">
+                            </div>
+                            <div class="review-content">
+                                <h5 class="review-user">Іван Петров</h5>
+                                <div class="review-rating">
+                                    {% for i in 1..5 %}
+                                        <i class="bi bi-star{{ i <= 4 ? '-fill' : '' }}" style="color: {{ i <= 4 ? 'gold' : 'black' }};"></i>
+                                    {% endfor %}
+                                </div>
+                                <p>Дуже вдячний за якісну роботу. Все виконано вчасно!</p>
+                                <p class="review-date">12 березня 2025</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Правый контейнер для написания отзыва -->
+                    <div class="col-lg-4">
+                        <h2 class="section-title">Залиште свій відгук</h2>
+                        <form id="reviewForm">
+                            <div class="mb-3">
+                                <label for="reviewText" class="form-label">Ваш відгук</label>
+                                <textarea id="reviewText" class="form-control" rows="4" required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Ваша оцінка</label>
+                                <div class="review-rating">
+                                    {% for i in 1..5 %}
+                                        <i class="bi bi-star" data-star="{{ i }}" onclick="setRating({{ i }})" style="color: black;"></i>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Відправити відгук</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'components/footer.html.twig' %}
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        let rating = 0;
+
+        function setRating(star) {
+            rating = star;
+            const stars = document.querySelectorAll('.bi-star');
+            stars.forEach((el, index) => {
+                if (index < star) {
+                    el.classList.add('bi-star-fill');
+                    el.style.color = 'gold'; // Задаем желтый цвет для заполненных звезд
+                } else {
+                    el.classList.remove('bi-star-fill');
+                    el.style.color = 'black'; // Черный цвет для незаполненных звезд
+                }
+            });
+        }
+
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const reviewText = document.getElementById('reviewText').value;
+
+            // Здесь можно добавить код для отправки отзыва на сервер
+            console.log(`Відгук: ${reviewText}, Оцінка: ${rating}`);
+        });
+    </script>
+{% endblock %}

@@ -46,7 +46,7 @@ class AuthorizationController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('home/index.html.twig', [
+        return $this->render('home/reviews.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error ? 'Неправильна пошта або пароль' : null
         ]);

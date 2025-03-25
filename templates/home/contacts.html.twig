@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'components/header.html.twig' %}
+
+    <main class="main">
+
+        <section id="contact" class="hero contact section light-background">
+
+            <div class="container section-title" data-aos="fade-up">
+                <h2>Контакти</h2>
+            </div>
+
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row g-4 g-lg-5">
+                    <div class="col-lg-5">
+                        <div class="info-box" data-aos="fade-up" data-aos-delay="200">
+                            <h3>Контакта iнформацiя</h3>
+                            <p>Ви можете безпосередньо написати за вказаним телефоном або електронною поштою, щоб дізнатися будь-які деталі, що вас цікавлять. <br>Наші менеджери з радістю дадуть вам відповіді на всі ваші запитання</p>
+
+                            <div class="info-item" data-aos="fade-up" data-aos-delay="400">
+                                <div class="icon-box">
+                                    <i class="bi bi-telephone"></i>
+                                </div>
+                                <div class="content">
+                                    <h4>Телефон</h4>
+                                    <p>+38 099 106 6570</p>
+                                </div>
+                            </div>
+
+                            <div class="info-item" data-aos="fade-up" data-aos-delay="500">
+                                <div class="icon-box">
+                                    <i class="bi bi-envelope"></i>
+                                </div>
+                                <div class="content">
+                                    <h4>Ел. Пошта</h4>
+                                    <p>info@example.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-7">
+                        <div class="contact-form" data-aos="fade-up" data-aos-delay="300">
+                            <h3>Написати нам</h3>
+                            <p>Ми отримаємо це повідомлення на свою пошту, щоб дізнатися питання, яке вас цiкавить і зв'яжемося з вами незабаром</p>
+
+                            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                                <div class="row gy-4">
+
+                                    <div class="col-md-6">
+                                        <input type="text" name="name" class="form-control" placeholder="Ваше iм'я" required="">
+                                    </div>
+
+                                    <div class="col-md-6 ">
+                                        <input type="email" class="form-control" name="email" placeholder="Ваша пошта" required="">
+                                    </div>
+
+                                    <div class="col-12">
+                                        <textarea class="form-control" name="message" rows="6" placeholder="Запитання" required=""></textarea>
+                                    </div>
+
+                                    <div class="col-12 text-center">
+                                        <div class="loading">Завантаження</div>
+                                        <div class="error-message"></div>
+                                        <div class="sent-message">Ваше повідомлення успiшно надіслано. Дякую!</div>
+
+                                        <button type="submit" class="btn">Вiдправити</button>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    {% include 'components/footer.html.twig' %}
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endblock %}

@@ -1,35 +1,18 @@
 {% block body %}
-    <style>
-        .modal-content {
-            padding: 20px;
-        }
-        .btn {
-            margin: 0 auto;
-            display: block;
-        }
-        .dropdown-item {
-            cursor: pointer;
-        }
-        .error-text {
-            color: red;
-            font-size: 14px;
-            margin-top: 2px;
-            margin-bottom: 2px;
-        }
-    </style>
+    <link href="/assets/css/header.css" rel="stylesheet">
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-            <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+            <a href="{{ path('app_home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
                 <h1 class="sitename">Дипломка</h1>
             </a>
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="#hero" class="active">Головна</a></li>
-                    <li><a href="#about">Цiни</a></li>
-                    <li><a href="#features">Вiдгуки</a></li>
-                    <li><a href="#services">Контакти</a></li>
+                    <li><a href="{{ path('app_home') }}" class="active">Головна</a></li>
+                    <li><a href="{{ path('app_prices') }}">Цiни</a></li>
+                    <li><a href="{{ path('app_reviews') }}">Вiдгуки</a></li>
+                    <li><a href="{{ path('app_contacts') }}">Контакти</a></li>
                     <li class="dropdown">
                         <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                         <ul>
