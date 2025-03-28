@@ -1,97 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <link href="/assets/css/reviews.css" rel="stylesheet">
     <style>
-        .review-stars .bi-star,
-        .review-stars .bi-star-fill {
-            font-size: 1.5rem;
-            color: black;
-        }
-
-        .review-stars .bi-star-fill {
-            color: gold;
-        }
-
-        .review-rating .bi-star {
-            font-size: 2rem;
-            cursor: pointer;
-            transition: color 0.3s;
-            color: black;
-        }
-
-        .review-rating .bi-star:hover,
-        .review-rating .bi-star.hovered {
-            color: gold !important;
-        }
-
-        .review-rating .bi-star.selected {
-            color: gold;
-        }
-
-        .review-item {
+        .pagination {
             display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-list li {
+            display: inline-block;
+        }
+
+        .pagination-list a {
+            display: block;
+            padding: 10px 14px;
+            text-decoration: none;
+            color: #007bff;
             background-color: white;
-            border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 20px;
-            align-items: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+            transition: all 0.3s ease-in-out;
         }
 
-        .review-avatar-section {
-            flex: 30%;
-            text-align: center;
-            padding: 10px;
+        .pagination-list a:hover {
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
         }
 
-        .review-avatar img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .review-user {
+        .pagination-list .active a {
+            background-color: #007bff;
+            color: #fff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.8);
+            pointer-events: none;
             font-weight: bold;
-            margin-top: 10px;
-            font-size: 16px;
-        }
-
-        .review-date {
-            font-size: 14px;
-            color: gray;
-        }
-
-        .review-content-section {
-            flex: 70%;
-            padding: 10px;
-        }
-
-        .review-stars {
-            margin-bottom: 10px;
-        }
-
-        .review-stars i {
-            font-size: 18px;
-            color: gold;
-        }
-
-        .review-text {
-            font-size: 15px;
         }
     </style>
-
     {% include 'components/header.html.twig' %}
 
     <main class="main">
         <section id="hero" class="hero section">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row">
-                    <!-- Левый контейнер с отзывами -->
+
+                    <!-- Reviews -->
                     <div class="col-lg-8">
                         <h2 class="section-title">Відгуки наших клієнтів</h2>
 
-                        {% for review in reviews %}
+                        {% for review in paginatedReviews %}
                             <div class="review-item">
 
                                 <div class="review-avatar-section">
@@ -99,7 +64,9 @@
                                         <img src="{{ review.author.profileImage ?: asset('assets/img/user.png') }}"
                                              alt="User Avatar">
                                     </div>
-                                    <div class="review-user">{{ review.author.email }}</div>
+                                    <div class="review-user">
+                                        {{ review.author.username ?: review.author.email }}
+                                    </div>
                                 </div>
 
                                 <div class="review-content-section">
@@ -126,9 +93,30 @@
                         {% else %}
                             <p>Немає відгуків</p>
                         {% endfor %}
+
+                        <div class="pagination">
+                            {% if paginatedReviews.pageCount > 1 %}
+                                <ul class="pagination-list">
+                                    {% if paginatedReviews.currentPageNumber > 1 %}
+                                        <li><a href="{{ path('app_reviews', { page: paginatedReviews.currentPageNumber - 1 }) }}"><</a></li>
+                                    {% endif %}
+
+                                    {% for page in range(1, paginatedReviews.pageCount) %}
+                                        <li class="{% if page == paginatedReviews.currentPageNumber %}active{% endif %}">
+                                            <a href="{{ path('app_reviews', { page: page }) }}">{{ page }}</a>
+                                        </li>
+                                    {% endfor %}
+
+                                    {% if paginatedReviews.currentPageNumber < paginatedReviews.pageCount %}
+                                        <li><a href="{{ path('app_reviews', { page: paginatedReviews.currentPageNumber + 1 }) }}">></a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        </div>
+
                     </div>
 
-                    <!-- Правый контейнер для написания отзыва -->
+                    <!-- Write Review -->
                     <div class="col-lg-4">
                         <h2 class="section-title">Залиште свій відгук</h2>
 

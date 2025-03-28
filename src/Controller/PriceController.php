@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Activity;
 use App\Entity\Order;
 use App\Entity\Service;
 use App\Repository\ServiceRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -24,12 +26,14 @@ class PriceController extends AbstractController
     }
 
     #[Route('/order', name: 'app_order')]
-    public function showOrder(ServiceRepository $serviceRepository): Response
+    public function showOrder(ServiceRepository $serviceRepository, Security $security): Response
     {
         $services = $serviceRepository->findAll();
+        $user = $security->getUser();
 
         return $this->render('home/order.html.twig', [
             'services' => $services,
+            'user' => $user,
         ]);
     }
 
@@ -67,6 +71,9 @@ class PriceController extends AbstractController
 
             $order->setFile($filename);
         }
+
+        $activity = new Activity("Нове замовлення створено");
+        $entityManager->persist($activity);
 
         $entityManager->persist($order);
         $entityManager->flush();

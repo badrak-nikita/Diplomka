@@ -4,7 +4,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="{{ path('admin_home') }}">
+                <a class="nav-link collapsed" href="{{ path('admin_home') }}">
                     <i class="bi bi-grid"></i>
                     <span>Головна</span>
                 </a>
@@ -23,14 +23,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
+                <a class="nav-link collapsed" href="{{ path('admin_users') }}">
                     <i class="bi bi-person"></i>
                     <span>Користувачi</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="pages-contact.html">
+                <a class="nav-link collapsed" href="{{ path('admin_reviews') }}">
                     <i class="bi bi-envelope"></i>
                     <span>Вiдгуки</span>
                 </a>

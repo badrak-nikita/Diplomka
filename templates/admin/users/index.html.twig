@@ -1,0 +1,66 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/components/header.html.twig' %}
+    {% include 'admin/components/sidebar.html.twig' %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            <h1>Користувачi</h1>
+        </div>
+
+        <section class="section dashboard">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="card-body">
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Клієнт</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Телефон</th>
+                                    <th scope="col">Унiверситет</th>
+                                    <th scope="col">Дата реєстрації</th>
+                                    <th scope="col">Профiль оновлено</th>
+                                    <th scope="col">Telegram</th>
+                                    <th scope="col">Instagram</th>
+                                    <th scope="col">Facebook</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.id }}</td>
+                                        <td>{{ user.username }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.phone }}</td>
+                                        <td>{{ user.university }}</td>
+                                        <td>{{ user.createdAt|date('d-m-Y H:i') }}</td>
+                                        <td>{{ user.updatedAt ? user.updatedAt|date('d-m-Y H:i') }}</td>
+                                        <td>{{ user.telegram }}</td>
+                                        <td>{{ user.instagram }}</td>
+                                        <td>{{ user.facebook }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'admin/components/footer.html.twig' %}
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endblock %}

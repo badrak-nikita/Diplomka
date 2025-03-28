@@ -30,9 +30,16 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ path('admin_home') }}" class="{{ app.request.attributes.get('_route') == 'admin_home' ? 'active' : '' }}">
-                            Панель керування
+                        <a href="{{ path('app_order') }}" class="{{ app.request.attributes.get('_route') == 'app_order' ? 'active' : '' }}">
+                            Замовити роботу
                         </a>
+                    </li>
+                    <li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_home') }}" class="{{ app.request.attributes.get('_route') == 'admin_home' ? 'active' : '' }}">
+                                Панель керування
+                            </a>
+                        {% endif %}
                     </li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>

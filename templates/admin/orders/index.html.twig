@@ -19,22 +19,75 @@
                         <div class="card-body">
                             <table class="table table-borderless datatable">
                                 <thead>
-                                    <tr>
-                                        <th scope="col">№</th>
-                                        <th scope="col">Послуга</th>
-                                        <th scope="col">Клієнт</th>
-                                        <th scope="col">Дата замовлення</th>
-                                        <th scope="col">Статус</th>
-                                    </tr>
+                                <tr>
+                                    <th scope="col">№</th>
+                                    <th scope="col">Послуга</th>
+                                    <th scope="col">Клієнт</th>
+                                    <th scope="col">Дата замовлення</th>
+                                    <th scope="col">Статус</th>
+                                    <th scope="col">Дiя</th>
+                                </tr>
                                 </thead>
                                 <tbody>
+                                {% for order in orders %}
                                     <tr>
-                                        <th scope="row"><a href="#">#2457</a></th>
-                                        <td>Brandon Jacob</td>
-                                        <td>At praesentium minu</td>
-                                        <td>$64</td>
-                                        <td><span class="badge bg-success">Approved</span></td>
+                                        <th scope="row">
+                                            <a href="#" data-bs-toggle="modal" data-bs-target="#orderModal{{ order.id }}">{{ order.id }}</a>
+                                        </th>
+                                        <td>{{ order.service.serviceName }}</td>
+                                        <td>{{ order.clientName }}</td>
+                                        <td>{{ order.createdAt|date('d-m-Y') }}
+                                            <p>{{ order.createdAt|date('H:i') }}</p>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if order.status == 1 %}bg-warning{% elseif order.status == 2 %}bg-success{% else %}bg-secondary{% endif %}">
+                                                {% if order.status == 1 %}Очікує{% elseif order.status == 2 %}Виконано{% endif %}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#orderModal{{ order.id }}">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                            <form action="{{ path('admin_orders_update_status', { 'id': order.id }) }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="bi bi-check-circle"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
+
+                                    <div class="modal fade" id="orderModal{{ order.id }}" tabindex="-1" aria-labelledby="orderModalLabel{{ order.id }}" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="orderModalLabel{{ order.id }}">Деталі замовлення #{{ order.id }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>Послуга:</strong> {{ order.service.serviceName }}</p>
+                                                    <p><strong>Клієнт:</strong> {{ order.clientName }}</p>
+                                                    <p><strong>Email:</strong> {{ order.email }}</p>
+                                                    <p><strong>Телефон:</strong> {{ order.phone }}</p>
+                                                    <p><strong>Тема:</strong> {{ order.topic }}</p>
+                                                    <p><strong>Побажання:</strong> {{ order.wishes }}</p>
+                                                    <p><strong>Дедлайн:</strong> {{ order.deadline|date('d-m-Y') }}</p>
+                                                    <p><strong>Telegram:</strong> {{ order.telegram }}</p>
+                                                    <p><strong>Файл:</strong>
+                                                        {% if order.file %}
+                                                            <a href="{{ asset('uploads/' ~ order.file) }}" download>Завантажити</a>
+                                                        {% endif %}
+                                                    </p>
+                                                    <p><strong>Дата замовлення:</strong> {{ order.createdAt|date('d-m-Y H:i') }}</p>
+                                                    <p><strong>Статус:</strong> {% if order.status == 1 %}Очікує{% elseif order.status == 2 %}Виконано{% endif %}</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% endfor %}
                                 </tbody>
                             </table>
 

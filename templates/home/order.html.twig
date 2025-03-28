@@ -21,13 +21,16 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control required" name="fullName" placeholder="Ваше iм'я" required>
+                                            <input type="text" class="form-control required" name="fullName" placeholder="Ваше iм'я"
+                                                   value="{{ user ? user.username : '' }}" required>
                                         </div>
                                         <div class="mb-3">
-                                            <input type="email" class="form-control required" name="email" placeholder="Ел. Пошта" required>
+                                            <input type="email" class="form-control required" name="email" placeholder="Ел. Пошта"
+                                                   value="{{ user ? user.email : '' }}" required>
                                         </div>
                                         <div class="mb-3">
-                                            <input type="tel" class="form-control" name="phone" placeholder="Телефон">
+                                            <input type="tel" class="form-control" name="phone" placeholder="Телефон"
+                                                   value="{{ user ? user.phone : '' }}">
                                         </div>
                                         <div class="mb-3">
                                             <input type="file" class="d-none" id="fileInput" name="fileInput" />
@@ -61,7 +64,8 @@
                                             <input type="date" class="form-control" name="deadline" placeholder="Бажаний дедлайн">
                                         </div>
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" name="telegram" placeholder="Ваш телеграм">
+                                            <input type="text" class="form-control required" name="telegram" placeholder="Ваш телеграм"
+                                                   value="{{ user ? user.telegram : '' }}">
                                         </div>
                                     </div>
                                 </div>

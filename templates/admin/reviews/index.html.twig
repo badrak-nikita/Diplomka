@@ -1,0 +1,84 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/components/header.html.twig' %}
+    {% include 'admin/components/sidebar.html.twig' %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            <h1>Відгуки</h1>
+        </div>
+
+        <section class="section dashboard">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="card-body">
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Текст</th>
+                                    <th scope="col">Автор</th>
+                                    <th scope="col">Оцінка</th>
+                                    <th scope="col">Дiя</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for review in reviews %}
+                                    <tr>
+                                        <td>{{ review.id }}</td>
+                                        <td>{{ review.reviewText }}</td>
+                                        <td>{{ review.author.username }}</td>
+                                        <td>{{ review.rating }}</td>
+                                        <td>
+                                            <a href="{{ path('admin_review_edit', { 'id': review.id }) }}" class="btn btn-warning">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ review.id }}">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+
+                                            <div class="modal fade" id="deleteModal{{ review.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ review.id }}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalLabel{{ review.id }}">Підтвердження видалення</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Ви впевнені, що хочете видалити цей відгук?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form action="{{ path('admin_review_delete', { 'id': review.id }) }}" method="POST">
+                                                                <button type="submit" class="btn btn-danger">Видалити</button>
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Скасувати</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'admin/components/footer.html.twig' %}
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endblock %}

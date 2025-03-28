@@ -32,6 +32,7 @@ class ProfileController extends AbstractController
         $user->setTelegram($request->request->get('telegram'));
         $user->setInstagram($request->request->get('instagram'));
         $user->setFacebook($request->request->get('facebook'));
+        $user->setUpdatedAt(new \DateTimeImmutable('now'));
 
         $file = $request->files->get('avatar');
 

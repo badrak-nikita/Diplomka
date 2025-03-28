@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Activity;
 use App\Entity\Review;
 use App\Repository\ReviewRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,13 +16,22 @@ use Symfony\Component\Routing\Attribute\Route;
 class ReviewController extends AbstractController
 {
     #[Route('/reviews', name: 'app_reviews')]
-    public function index(ReviewRepository $reviewRepository): Response
+    public function index(ReviewRepository $reviewRepository, PaginatorInterface $paginator, Request $request): Response
     {
-        $reviews = $reviewRepository->findAll();
+        $reviews = $reviewRepository->createQueryBuilder('r')
+            ->orderBy('r.createdAt', 'DESC')
+            ->getQuery();
+
+        $pagination = $paginator->paginate(
+            $reviews,
+            $request->query->getInt('page', 1),
+            10
+        );
+
         $isAuthenticated = $this->isGranted('IS_AUTHENTICATED_FULLY');
 
         return $this->render('home/reviews.html.twig', [
-            'reviews' => $reviews,
+            'paginatedReviews' => $pagination,
             'isAuthenticated' => $isAuthenticated,
         ]);
     }
@@ -42,6 +53,9 @@ class ReviewController extends AbstractController
         $review->setRating($rating);
         $review->setCreatedAt(new \DateTimeImmutable());
         $review->setAuthor($user);
+
+        $activity = new Activity("Додано новий вiдгук");
+        $entityManager->persist($activity);
 
         $entityManager->persist($review);
         $entityManager->flush();

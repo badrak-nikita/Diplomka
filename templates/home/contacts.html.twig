@@ -35,7 +35,7 @@
                                 </div>
                                 <div class="content">
                                     <h4>Ел. Пошта</h4>
-                                    <p>info@example.com</p>
+                                    <p>diplomka.com.ua@gmail.com</p>
                                 </div>
                             </div>
                         </div>
@@ -46,26 +46,22 @@
                             <h3>Написати нам</h3>
                             <p>Ми отримаємо це повідомлення на свою пошту, щоб дізнатися питання, яке вас цiкавить і зв'яжемося з вами незабаром</p>
 
-                            <form action="" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+                            <form action="{{ path('app_contacts') }}" method="post" data-aos="fade-up" data-aos-delay="200">
                                 <div class="row gy-4">
 
                                     <div class="col-md-6">
-                                        <input type="text" name="name" class="form-control" placeholder="Ваше iм'я" required="">
+                                        <input type="text" name="name" class="form-control" placeholder="Ваше iм'я" required>
                                     </div>
 
-                                    <div class="col-md-6 ">
-                                        <input type="email" class="form-control" name="email" placeholder="Ваша пошта" required="">
+                                    <div class="col-md-6">
+                                        <input type="email" class="form-control" name="email" placeholder="Ваша пошта" required>
                                     </div>
 
                                     <div class="col-12">
-                                        <textarea class="form-control" name="message" rows="6" placeholder="Запитання" required=""></textarea>
+                                        <textarea class="form-control" name="message" rows="6" placeholder="Запитання" required></textarea>
                                     </div>
 
                                     <div class="col-12 text-center">
-                                        <div class="loading">Завантаження</div>
-                                        <div class="error-message"></div>
-                                        <div class="sent-message">Ваше повідомлення успiшно надіслано. Дякую!</div>
-
                                         <button type="submit" class="btn">Вiдправити</button>
                                     </div>
 
