@@ -1,0 +1,47 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Редагувати послугу</h5>
+                                    </div>
+
+                                    <form class="row g-3 needs-validation" method="POST">
+                                        <div class="col-12">
+                                            <label for="serviceName" class="form-label">Назва</label>
+                                            <input type="text" name="serviceName" class="form-control" id="serviceName" value="{{ service.serviceName }}" required>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="duration" class="form-label">Термiн</label>
+                                            <input type="text" name="duration" class="form-control" id="duration" value="{{ service.duration }}">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="price" class="form-label">Цiна</label>
+                                            <input type="number" name="price" class="form-control" id="price" value="{{ service.price }}">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="btn btn-success w-100" type="submit">Зберегти</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </div>
+    </main>
+{% endblock %}

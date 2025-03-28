@@ -1,0 +1,253 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link href="/assets/css/profile.css" rel="stylesheet">
+    <style>
+        .order-btn {
+            display: block; !important;
+            background-color: white;
+            color: #007bff;
+            border: 1px solid #ccc;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .password-btn {
+            display: block; !important;
+            background-color: white;
+            color: red;
+            border: 1px solid #ccc;
+            padding: 6px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .order-btn:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            color: white;
+        }
+
+        .password-btn:hover {
+            background-color: red;
+            transform: scale(1.05);
+            color: white;
+        }
+    </style>
+    {% include 'components/header.html.twig' %}
+
+    <main class="main">
+
+        <section id="hero" class="contact section" style="background-color: ghostwhite;">
+
+            <div class="container mt-5" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row">
+
+                    <div class="col-xl-4">
+                        <div class="card profile-card shadow-sm border-0 rounded">
+                            <div class="card-body text-center">
+                                <img src="{{ user.profileImage is not empty ? user.profileImage : asset('assets/img/user.png') }}" alt="Profile" class="rounded-circle profile-img" style="width: 125px; height: 125px;">
+                                <h2 class="profile-name">{{ user.username }}</h2>
+                                <div class="social-links mt-3">
+                                    <div class="social-links mt-3">
+                                        <a href="https://t.me/{{ user.telegram }}" class="social-btn" target="_blank">
+                                            <i class="bi bi-telegram"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/{{ user.instagram }}" class="social-btn" target="_blank">
+                                            <i class="bi bi-instagram"></i>
+                                        </a>
+                                        <a href="https://www.facebook.com/{{ user.facebook }}" class="social-btn" target="_blank">
+                                            <i class="bi bi-facebook"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-8">
+                        <div class="card shadow-sm border-0 rounded">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs nav-tabs-bordered">
+                                    <li class="nav-item">
+                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Огляд</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Редагування</button>
+                                    </li>
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Змiнити пароль</button>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content pt-3">
+
+                                    <!-- Overview Profile -->
+                                    <div class="tab-pane fade show active" id="profile-overview">
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 label">Iм'я</div>
+                                            <div class="col-lg-8">{{ user.username }}</div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 label">Email</div>
+                                            <div class="col-lg-8">{{ user.email }}</div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 label">Телефон</div>
+                                            <div class="col-lg-8">{{ user.phone is not empty ? user.phone }}</div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-lg-4 label">Університет</div>
+                                            <div class="col-lg-8">{{ user.university is not empty ? user.university }}</div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Edit Profile -->
+                                    <div class="tab-pane fade" id="profile-edit">
+                                        <form action="{{ path('app_profile_edit') }}" method="POST" enctype="multipart/form-data">
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Зображення</label>
+                                                <div class="col-md-8">
+                                                    <div class="d-flex align-items-center">
+                                                        <img id="avatar-preview" src="{{ user.profileImage is not empty ? user.profileImage : asset('assets/img/user.png') }}" alt="Profile" class="profile-edit-img me-3" style="width: 125px; height: 125px;">
+                                                    </div>
+                                                    <div class="pt-2">
+                                                        <input type="file" name="avatar" id="avatar" class="d-none" accept="image/*" onchange="previewAvatar()">
+                                                        <label for="avatar" class="btn btn-sm btn-primary d-inline-block"><i class="bi bi-upload"></i></label>
+                                                        <button type="button" class="btn btn-sm btn-danger d-inline-block" onclick="removeAvatar()">
+                                                            <i class="bi bi-trash"></i>
+                                                        </button>
+                                                        <input type="hidden" name="remove_avatar" id="remove_avatar" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Iм'я</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="username" value="{{ user.username }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Email</label>
+                                                <div class="col-md-8">
+                                                    <input type="email" class="form-control" name="email" value="{{ user.email }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Телефон</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="phone" value="{{ user.phone }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Університет</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="university" value="{{ user.university }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Telegram</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="telegram" value="{{ user.telegram }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Instagram</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="instagram" value="{{ user.instagram }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Facebook</label>
+                                                <div class="col-md-8">
+                                                    <input type="text" class="form-control" name="facebook" value="{{ user.facebook }}">
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="submit" class="order-btn" style="width: auto; margin: 20px auto 0; display: block;">Зберегти зміни</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- Change Password -->
+                                    <div class="tab-pane fade" id="profile-change-password">
+                                        <form action="{{ path('app_profile_change_password') }}" method="POST">
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Поточний пароль</label>
+                                                <div class="col-md-8">
+                                                    <input type="password" class="form-control" name="current_password" id="current_password" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Новий пароль</label>
+                                                <div class="col-md-8">
+                                                    <input type="password" class="form-control" name="new_password" id="new_password" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="row mb-3">
+                                                <label class="col-md-4 col-form-label">Підтвердити пароль</label>
+                                                <div class="col-md-8">
+                                                    <input type="password" class="form-control" name="confirm_password" id="confirm_password" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="text-center">
+                                                <button type="submit" class="password-btn" style="width: auto; margin: 20px auto 0; display: block;">Змінити пароль</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    {% include 'components/footer.html.twig' %}
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        function previewAvatar() {
+            const file = document.getElementById('avatar').files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                document.getElementById('avatar-preview').src = e.target.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function removeAvatar() {
+            document.getElementById('avatar-preview').src = '{{ asset('assets/img/user.png') }}';
+            document.getElementById('remove_avatar').value = '1';
+        }
+    </script>
+{% endblock %}

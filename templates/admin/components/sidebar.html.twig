@@ -1,0 +1,42 @@
+{% block body %}
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link " href="{{ path('admin_home') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Головна</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('admin_services') }}">
+                    <i class="bi bi-menu-button-wide"></i><span>Послуги</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ path('admin_orders') }}">
+                    <i class="bi bi-journal-text"></i><span>Замовлення</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="users-profile.html">
+                    <i class="bi bi-person"></i>
+                    <span>Користувачi</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="pages-contact.html">
+                    <i class="bi bi-envelope"></i>
+                    <span>Вiдгуки</span>
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+{% endblock %}

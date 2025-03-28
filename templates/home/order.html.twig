@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <link href="/assets/css/order.css" rel="stylesheet">
+    {% include 'components/header.html.twig' %}
+
+    <main class="main">
+
+        <section id="hero" class="about section mt-5">
+            <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="container section-title" data-aos="fade-up">
+                    <h2>Створення замовлення</h2>
+                    <p>Заповніть форму нижче і ми зв'яжемося з вами найближчим часом</p>
+                </div>
+
+                <form action="{{ path('app_order_create') }}" method="POST" enctype="multipart/form-data">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="card p-4" style="background-color: #f8fcff; border-radius: 15px; border: none;">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control required" name="fullName" placeholder="Ваше iм'я" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="email" class="form-control required" name="email" placeholder="Ел. Пошта" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="tel" class="form-control" name="phone" placeholder="Телефон">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="file" class="d-none" id="fileInput" name="fileInput" />
+                                            <label for="fileInput" class="file-label">Прикрiпити файл</label>
+                                            <div id="fileName" class="mt-2">
+                                                <img src="{{ asset('assets/img/file.png') }}" alt="File Icon" style="width: 20px; height: 20px; vertical-align: middle; display: none;" id="fileIcon">
+                                                <span id="fileText" style="margin-left: 5px;"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <select class="form-select required" name="service" required>
+                                                <option value="" disabled selected>Послуга</option>
+                                                {% for service in services %}
+                                                    <option value="{{ service.id }}">{{ service.serviceName }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control required" name="subject" placeholder="Предмет" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control required" name="topic" placeholder="Тема" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <textarea class="form-control" name="wishes" rows="3" placeholder="Побажання"></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="date" class="form-control" name="deadline" placeholder="Бажаний дедлайн">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="telegram" placeholder="Ваш телеграм">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="order-btn" style="width: auto; margin: 20px auto 0; display: block;" type="submit">Створити замовлення</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'components/footer.html.twig' %}
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function() {
+            const fileName = this.files[0] ? this.files[0].name : '';
+            const fileText = document.getElementById('fileText');
+            const fileIcon = document.getElementById('fileIcon');
+
+            if (fileName) {
+                fileIcon.style.display = 'inline';
+                fileText.textContent = fileName;
+            } else {
+                fileIcon.style.display = 'none';
+                fileText.textContent = '';
+            }
+        });
+    </script>
+{% endblock %}

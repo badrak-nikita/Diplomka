@@ -1,0 +1,55 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    <main>
+        <div class="container">
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="{{ path('admin_home') }}" class="logo d-flex align-items-center w-auto">
+                                    <img src="{{ asset('assets/img/logo.png') }}" alt="">
+                                    <span class="d-none d-lg-block">Дипломка</span>
+                                </a>
+                            </div>
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Додати послугу</h5>
+                                    </div>
+
+                                    <form action="{{ path('admin_services_create') }}" method="POST" class="row g-3 needs-validation" novalidate>
+                                        <div class="col-12">
+                                            <label for="serviceName" class="form-label">Назва</label>
+                                            <input type="text" name="serviceName" class="form-control" id="serviceName" required>
+                                            <div class="invalid-feedback">Введiть назву</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="duration" class="form-label">Термiн</label>
+                                            <input type="text" name="duration" class="form-control" id="duration">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="price" class="form-label">Цiна</label>
+                                            <input type="number" name="price" step="0.01" class="form-control" id="price">
+                                        </div>
+
+                                        <div class="col-12">
+                                            <button class="btn btn-success w-100" type="submit">Створити</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+{% endblock %}

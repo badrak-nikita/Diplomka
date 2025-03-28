@@ -1,10 +1,89 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <style>
+        .review-stars .bi-star,
+        .review-stars .bi-star-fill {
+            font-size: 1.5rem;
+            color: black;
+        }
+
+        .review-stars .bi-star-fill {
+            color: gold;
+        }
+
+        .review-rating .bi-star {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+            color: black;
+        }
+
+        .review-rating .bi-star:hover,
+        .review-rating .bi-star.hovered {
+            color: gold !important;
+        }
+
+        .review-rating .bi-star.selected {
+            color: gold;
+        }
+
+        .review-item {
+            display: flex;
+            background-color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .review-avatar-section {
+            flex: 30%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .review-avatar img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .review-user {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 16px;
+        }
+
+        .review-date {
+            font-size: 14px;
+            color: gray;
+        }
+
+        .review-content-section {
+            flex: 70%;
+            padding: 10px;
+        }
+
+        .review-stars {
+            margin-bottom: 10px;
+        }
+
+        .review-stars i {
+            font-size: 18px;
+            color: gold;
+        }
+
+        .review-text {
+            font-size: 15px;
+        }
+    </style>
+
     {% include 'components/header.html.twig' %}
 
     <main class="main">
-
         <section id="hero" class="hero section">
             <div class="container" data-aos="fade-up" data-aos-delay="100">
                 <div class="row">
@@ -12,49 +91,69 @@
                     <div class="col-lg-8">
                         <h2 class="section-title">Відгуки наших клієнтів</h2>
 
-                        <div class="review-item mb-5">
-                            <div class="review-avatar">
-                                <img src="assets/img/avatar-1.webp" alt="User Avatar" class="img-fluid rounded-circle" width="50">
-                            </div>
-                            <div class="review-content">
-                                <h5 class="review-user">Іван Петров</h5>
-                                <div class="review-rating">
-                                    {% for i in 1..5 %}
-                                        <i class="bi bi-star{{ i <= 4 ? '-fill' : '' }}" style="color: {{ i <= 4 ? 'gold' : 'black' }};"></i>
-                                    {% endfor %}
-                                </div>
-                                <p>Дуже вдячний за якісну роботу. Все виконано вчасно!</p>
-                                <p class="review-date">12 березня 2025</p>
-                            </div>
-                        </div>
+                        {% for review in reviews %}
+                            <div class="review-item">
 
+                                <div class="review-avatar-section">
+                                    <div class="review-avatar">
+                                        <img src="{{ review.author.profileImage ?: asset('assets/img/user.png') }}"
+                                             alt="User Avatar">
+                                    </div>
+                                    <div class="review-user">{{ review.author.email }}</div>
+                                </div>
+
+                                <div class="review-content-section">
+                                    <div>
+                                        <div class="review-stars">
+                                            {% for i in 1..5 %}
+                                                <i class="bi {{ i <= review.rating ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                            {% endfor %}
+                                        </div>
+                                        <p class="review-text">{{ review.reviewText }}</p>
+                                    </div>
+                                    <div class="review-date">
+                                        {% set months = {
+                                            'January': 'січня', 'February': 'лютого', 'March': 'березня',
+                                            'April': 'квітня', 'May': 'травня', 'June': 'червня',
+                                            'July': 'липня', 'August': 'серпня', 'September': 'вересня',
+                                            'October': 'жовтня', 'November': 'листопада', 'December': 'грудня'
+                                        } %}
+                                        {% set formattedDate = review.createdAt|date('d F Y') %}
+                                        {{ formattedDate|replace(months) }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p>Немає відгуків</p>
+                        {% endfor %}
                     </div>
 
                     <!-- Правый контейнер для написания отзыва -->
                     <div class="col-lg-4">
                         <h2 class="section-title">Залиште свій відгук</h2>
+
                         <form id="reviewForm">
                             <div class="mb-3">
-                                <label for="reviewText" class="form-label">Ваш відгук</label>
-                                <textarea id="reviewText" class="form-control" rows="4" required></textarea>
+                                <textarea name="reviewText" id="reviewText" class="form-control" rows="4" placeholder="Ваш відгук"
+                                          {% if not isAuthenticated %}disabled title="Будь ласка, спочатку зайдiть в свiй акаунт"{% endif %} required></textarea>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Ваша оцінка</label>
                                 <div class="review-rating">
                                     {% for i in 1..5 %}
-                                        <i class="bi bi-star" data-star="{{ i }}" onclick="setRating({{ i }})" style="color: black;"></i>
+                                        <i class="bi bi-star" data-star="{{ i }}"
+                                           {% if not isAuthenticated %}title="Будь ласка, спочатку зайдiть в свiй акаунт"{% endif %}></i>
                                     {% endfor %}
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Відправити відгук</button>
+                            <button type="submit" class="btn btn-primary" {% if not isAuthenticated %}disabled{% endif %}>Відправити відгук</button>
                         </form>
                     </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     {% include 'components/footer.html.twig' %}
@@ -66,24 +165,52 @@
 
         function setRating(star) {
             rating = star;
-            const stars = document.querySelectorAll('.bi-star');
-            stars.forEach((el, index) => {
+            document.querySelectorAll('#reviewForm .bi-star').forEach((el, index) => {
                 if (index < star) {
-                    el.classList.add('bi-star-fill');
-                    el.style.color = 'gold'; // Задаем желтый цвет для заполненных звезд
+                    el.classList.add('selected');
                 } else {
-                    el.classList.remove('bi-star-fill');
-                    el.style.color = 'black'; // Черный цвет для незаполненных звезд
+                    el.classList.remove('selected');
                 }
             });
         }
 
-        document.getElementById('reviewForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const reviewText = document.getElementById('reviewText').value;
+        document.querySelectorAll('#reviewForm .bi-star').forEach((star, index) => {
+            star.addEventListener('click', () => setRating(index + 1));
 
-            // Здесь можно добавить код для отправки отзыва на сервер
-            console.log(`Відгук: ${reviewText}, Оцінка: ${rating}`);
+            star.addEventListener('mouseover', () => {
+                document.querySelectorAll('#reviewForm .bi-star').forEach((el, i) => {
+                    if (i <= index) {
+                        el.classList.add('hovered');
+                    }
+                });
+            });
+
+            star.addEventListener('mouseout', () => {
+                document.querySelectorAll('#reviewForm .bi-star').forEach(el => el.classList.remove('hovered'));
+            });
+        });
+
+        document.getElementById('reviewForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const reviewText = document.getElementById('reviewText').value.trim();
+
+            fetch('/reviews/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({
+                    reviewText: reviewText,
+                    rating: rating
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    location.reload();
+                })
+                .catch(error => console.error('Error:', error));
         });
     </script>
 {% endblock %}

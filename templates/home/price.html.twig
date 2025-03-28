@@ -17,38 +17,26 @@
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
-                                <tr>
-                                    <th>Тип роботи</th>
-                                    <th>Срок</th>
-                                    <th>Ціна</th>
-                                    <th></th>
-                                </tr>
+                                    <tr>
+                                        <th>Тип роботи</th>
+                                        <th>Срок</th>
+                                        <th>Ціна</th>
+                                        <th></th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr class="price-row">
-                                    <td>Курсова робота</td>
-                                    <td>3-5 днів</td>
-                                    <td>від 800 грн</td>
-                                    <td><button class="btn order-btn">Замовити</button></td>
-                                </tr>
-                                <tr class="price-row">
-                                    <td>Бакалаврська робота</td>
-                                    <td>7-10 днів</td>
-                                    <td>від 3000 грн</td>
-                                    <td><button class="btn order-btn">Замовити</button></td>
-                                </tr>
-                                <tr class="price-row">
-                                    <td>Магістерська робота</td>
-                                    <td>10-14 днів</td>
-                                    <td>від 5000 грн</td>
-                                    <td><button class="btn order-btn">Замовити</button></td>
-                                </tr>
-                                <tr class="price-row">
-                                    <td>Реферат</td>
-                                    <td>1-2 дні</td>
-                                    <td>від 300 грн</td>
-                                    <td><button class="btn order-btn">Замовити</button></td>
-                                </tr>
+                                    {% for service in services %}
+                                        <tr class="price-row">
+                                            <td>{{ service.serviceName }}</td>
+                                            <td>{{ service.duration }}</td>
+                                            <td>від {{ service.price }} грн</td>
+                                            <td><a href="{{ path('app_order') }}" class="btn order-btn">Замовити</a></td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">Послуги поки що відсутні</td>
+                                        </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -133,7 +121,7 @@
                 <div class="row content justify-content-center align-items-center position-relative">
                     <div class="col-lg-8 mx-auto text-center">
                         <h2 class="display-4 mb-4">Не відкладай на завтра те, що можна зробити сьогодні!</h2>
-                        <a href="#" class="btn btn-cta">Замовити роботу</a>
+                        <a href="{{ path('app_order') }}" class="btn btn-cta">Замовити роботу</a>
                     </div>
 
                     <div class="shape shape-1">
@@ -182,4 +170,15 @@
     {% include 'components/footer.html.twig' %}
 
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach((message) => {
+                setTimeout(() => {
+                    message.classList.remove('show');
+                }, 5000);
+            });
+        });
+    </script>
 {% endblock %}

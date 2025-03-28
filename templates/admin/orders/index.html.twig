@@ -1,0 +1,54 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/components/header.html.twig' %}
+    {% include 'admin/components/sidebar.html.twig' %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            <h1>Замовлення</h1>
+        </div>
+
+        <section class="section dashboard">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="card-body">
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">№</th>
+                                        <th scope="col">Послуга</th>
+                                        <th scope="col">Клієнт</th>
+                                        <th scope="col">Дата замовлення</th>
+                                        <th scope="col">Статус</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row"><a href="#">#2457</a></th>
+                                        <td>Brandon Jacob</td>
+                                        <td>At praesentium minu</td>
+                                        <td>$64</td>
+                                        <td><span class="badge bg-success">Approved</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'admin/components/footer.html.twig' %}
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+{% endblock %}

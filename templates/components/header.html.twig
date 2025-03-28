@@ -9,18 +9,30 @@
 
             <nav id="navmenu" class="navmenu">
                 <ul>
-                    <li><a href="{{ path('app_home') }}" class="active">Головна</a></li>
-                    <li><a href="{{ path('app_prices') }}">Цiни</a></li>
-                    <li><a href="{{ path('app_reviews') }}">Вiдгуки</a></li>
-                    <li><a href="{{ path('app_contacts') }}">Контакти</a></li>
-                    <li class="dropdown">
-                        <a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="#">Dropdown 1</a></li>
-                            <li><a href="#">Dropdown 2</a></li>
-                            <li><a href="#">Dropdown 3</a></li>
-                            <li><a href="#">Dropdown 4</a></li>
-                        </ul>
+                    <li>
+                        <a href="{{ path('app_home') }}" class="{{ app.request.attributes.get('_route') == 'app_home' ? 'active' : '' }}">
+                            Головна
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_prices') }}" class="{{ app.request.attributes.get('_route') == 'app_prices' ? 'active' : '' }}">
+                            Цiни
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_reviews') }}" class="{{ app.request.attributes.get('_route') == 'app_reviews' ? 'active' : '' }}">
+                            Вiдгуки
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('app_contacts') }}" class="{{ app.request.attributes.get('_route') == 'app_contacts' ? 'active' : '' }}">
+                            Контакти
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ path('admin_home') }}" class="{{ app.request.attributes.get('_route') == 'admin_home' ? 'active' : '' }}">
+                            Панель керування
+                        </a>
                     </li>
                 </ul>
                 <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
@@ -34,7 +46,7 @@
                             <li class="dropdown">
                                 <a href="#"><span>{{ app.user.email }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
-                                    <li><a class="dropdown-item" href="#">Профіль</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_profile') }}">Профіль</a></li>
                                     <li><a class="dropdown-item" href="{{ path('app_logout') }}">Вийти</a></li>
                                 </ul>
                             </li>
