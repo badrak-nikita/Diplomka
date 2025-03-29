@@ -22,7 +22,7 @@ class OrderRepository extends ServiceEntityRepository
             ->select('SUM(s.price)')
             ->join('o.service', 's')
             ->andWhere('o.status = :status')
-            ->setParameter('status', 2)
+            ->setParameter('status', Order::STATUS_COMPLETED)
             ->getQuery()
             ->getSingleScalarResult()
             ?? 0;

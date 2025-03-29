@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: '`order`')]
 class Order
 {
+    const STATUS_PENDING = 1;
+    const STATUS_COMPLETED = 2;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

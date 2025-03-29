@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\Service;
 use App\Repository\ActivityRepository;
 use App\Repository\OrderRepository;
@@ -21,7 +22,7 @@ class AdminController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function index(OrderRepository $orderRepository, UserRepository $userRepository, ActivityRepository $activityRepository): Response
     {
-        $pendingOrdersCount = $orderRepository->count(['status' => 1]);
+        $pendingOrdersCount = $orderRepository->count(['status' => Order::STATUS_PENDING]);
         $completedRevenue = $orderRepository->getTotalRevenue();
         $totalUsersCount = $userRepository->count([]);
         $recentActivities = $activityRepository->getRecentActivities();
@@ -53,10 +54,6 @@ class AdminController extends AbstractController
             $serviceName = $request->request->get('serviceName');
             $duration = $request->request->get('duration');
             $price = $request->request->get('price');
-
-            if (!$serviceName) {
-                return $this->redirectToRoute('admin_services_create');
-            }
 
             $service = new Service();
             $service->setServiceName($serviceName);
@@ -142,7 +139,7 @@ class AdminController extends AbstractController
             throw $this->createNotFoundException('Замовлення не знайдено');
         }
 
-        $newStatus = $order->getStatus() === 1 ? 2 : 1;
+        $newStatus = $order->getStatus() === Order::STATUS_PENDING ? Order::STATUS_COMPLETED : Order::STATUS_PENDING;
         $order->setStatus($newStatus);
 
         $entityManager->flush();

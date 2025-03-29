@@ -48,7 +48,6 @@ class ReviewController extends AbstractController
         $rating = (int) $data['rating'];
 
         $review = new Review();
-
         $review->setReviewText($reviewText);
         $review->setRating($rating);
         $review->setCreatedAt(new \DateTimeImmutable());

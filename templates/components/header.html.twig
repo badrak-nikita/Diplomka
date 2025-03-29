@@ -1,9 +1,23 @@
 {% block body %}
     <link href="/assets/css/header.css" rel="stylesheet">
+    <style>
+        .custom-button {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .custom-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
             <a href="{{ path('app_home') }}" class="logo d-flex align-items-center me-auto me-xl-0">
+                <img src="/assets/img/icon.png" alt="logo" style="width: 40px; height: 50px;">
                 <h1 class="sitename">Дипломка</h1>
             </a>
 
@@ -51,7 +65,7 @@
                     <nav id="navmenu" class="navmenu">
                         <ul>
                             <li class="dropdown">
-                                <a href="#"><span>{{ app.user.email }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <a href=""><span>{{ app.user.username ?: app.user.email }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                                 <ul>
                                     <li><a class="dropdown-item" href="{{ path('app_profile') }}">Профіль</a></li>
                                     <li><a class="dropdown-item" href="{{ path('app_logout') }}">Вийти</a></li>
@@ -69,7 +83,7 @@
 
     <!-- Login modal -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="authModalLabel">Авторизація</h5>
@@ -77,21 +91,21 @@
                 </div>
                 <div class="modal-body">
                     <form id="loginForm" method="POST" action="{{ path('app_login') }}">
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Електронна пошта</label>
+                        <div class="form-floating mb-3">
                             <input type="email" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
                                    id="email" name="email" value="{{ last_username|default('') }}" required>
+                            <label for="email">Електронна пошта</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Пароль</label>
+                        <div class="form-floating mb-3">
                             <input type="password" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
                                    id="password" name="password" required>
+                            <label for="password">Пароль</label>
                             {% if error is defined and error %}
                                 <div class="error-text">{{ error }}</div>
                             {% endif %}
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Вхід</button>
+                        <button type="submit" class="btn btn-primary custom-button">Вхід</button>
                     </form>
                     <hr>
                     <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
@@ -102,41 +116,30 @@
         </div>
     </div>
 
-    {% if error is defined and error %}
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var authModal = new bootstrap.Modal(document.getElementById('authModal'));
-                authModal.show();
-            });
-        </script>
-    {% endif %}
-
     <!-- Registration modal -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-fullscreen-sm-down">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="registerModalLabel">Реєстрація</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <form id="registerForm" method="POST" action="{{ path('app_register') }}">
-                        <div class="mb-3">
-                            <label for="registerEmail" class="form-label">Електронна пошта</label>
+                        <div class="form-floating mb-3">
                             <input type="email" class="form-control" id="registerEmail" name="email" required>
+                            <label for="registerEmail">Електронна пошта</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="registerPassword" class="form-label">Пароль</label>
+                        <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="registerPassword" name="password" required>
+                            <label for="registerPassword">Пароль</label>
                         </div>
-                        <div class="mb-3">
-                            <label for="registerConfirmPassword" class="form-label">Підтвердження пароля</label>
+                        <div class="form-floating mb-3">
                             <input type="password" class="form-control" id="registerConfirmPassword" name="confirm_password" required>
+                            <label for="registerConfirmPassword">Підтвердження паролю</label>
                         </div>
-                        <button type="submit" class="btn btn-primary">Зареєструватися</button>
+                        <button type="submit" class="btn btn-primary custom-button">Зареєструватися</button>
                         <hr>
-
                         <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-dismiss="modal">Назад до авторизації</button>
                     </form>
                 </div>
@@ -164,6 +167,10 @@
                     errorText.remove();
                 }
             });
+            {% if error is defined and error %}
+                var authModal = new bootstrap.Modal(document.getElementById('authModal'));
+                authModal.show();
+            {% endif %}
         });
     </script>
 {% endblock %}
