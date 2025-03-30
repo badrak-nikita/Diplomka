@@ -60,19 +60,15 @@
             </nav>
 
             {% if app.user %}
-                <div class="dropdown d-flex align-items-center">
-                    <img src="{{ app.user.profileImage ? asset(app.user.profileImage) : asset('assets/img/user.png') }}" alt="Avatar" class="rounded-circle" width="40" height="40" data-bs-toggle="dropdown" aria-expanded="false">
-                    <nav id="navmenu" class="navmenu">
-                        <ul>
-                            <li class="dropdown">
-                                <a href=""><span>{{ app.user.username ?: app.user.email }}</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a class="dropdown-item" href="{{ path('app_profile') }}">Профіль</a></li>
-                                    <li><a class="dropdown-item" href="{{ path('app_logout') }}">Вийти</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none text-dark dropdown-toggle" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="{{ app.user.profileImage ? asset(app.user.profileImage) : asset('assets/img/user.png') }}" alt="Avatar" class="rounded-circle" width="40" height="40">
+                        <span class="ms-2 d-none d-md-inline">{{ app.user.username ?: app.user.email }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="{{ path('app_profile') }}">Профіль</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_logout') }}">Вийти</a></li>
+                    </ul>
                 </div>
             {% else %}
                 <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Вхід | Реєстрація</a>

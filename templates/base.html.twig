@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>{% block title %}Дипломка{% endblock %}</title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+        <meta name="description" content="Замовити дипломну, бакалаврську, магістерську, курсову роботу на сайті Дипломка. Професійні автори, висока якість та унікальність. Усі предмети та спеціальності. Купити дипломні роботи будь-якого рівня складності." />
+        <meta name="keywords" content="Замовити дипломну роботу, курсові роботи на замовлення, бакалаврська, магістерська, написання дипломних, унікальні студентські роботи, купити диплом, зробити диплом" />
+        <meta name="robots" content="index, follow">
 
         <link href="/assets/img/icon.png" rel="icon">
         <link href="/assets/img/icon.png" rel="apple-touch-icon">
@@ -22,6 +23,17 @@
 
         <link href="/assets/css/main.css" rel="stylesheet">
     </head>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K45F4CDLQG"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-K45F4CDLQG');
+    </script>
+
     <body>
         {% block body %}{% endblock %}
 
@@ -33,5 +45,19 @@
         <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 
         <script src="/assets/js/main.js"></script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Service",
+                "serviceType": "Написання дипломних, бакалаврських, магістерських, курсових робіт",
+                "provider": {
+                    "@type": "Organization",
+                    "name": "Дипломка",
+                    "url": "https://diplomka.com.ua"
+                },
+                "description": "Замовити дипломну, бакалаврську, магістерську, курсову роботу на сайті Дипломка. Професійні автори, висока якість та унікальність. Усі предмети та спеціальності. Купити дипломні роботи будь-якого рівня складності."
+            }
+        </script>
     </body>
 </html>

@@ -2,6 +2,7 @@
 
 {% block body %}
     <link href="/assets/css/order.css" rel="stylesheet">
+    <link href="/assets/css/labels.css" rel="stylesheet">
     {% include 'components/header.html.twig' %}
 
     <main class="main">
@@ -20,17 +21,17 @@
                             <div class="card p-4" style="background-color: #f8fcff; border-radius: 15px; border: none;">
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control required" name="fullName" placeholder="Ваше iм'я"
-                                                   value="{{ user ? user.username : '' }}" required>
+                                        <div class="input-wrapper">
+                                            <input type="text" class="form-control required" name="fullName" id="fullName" placeholder="" value="{{ user ? user.username : '' }}" required>
+                                            <label for="fullName">Ваше ім'я</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="email" class="form-control required" name="email" placeholder="Ел. Пошта"
-                                                   value="{{ user ? user.email : '' }}" required>
+                                        <div class="input-wrapper">
+                                            <input type="email" class="form-control required" name="email" id="email" placeholder="" value="{{ user ? user.email : '' }}" required>
+                                            <label for="email">Ел. Пошта</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="tel" class="form-control" name="phone" placeholder="Телефон"
-                                                   value="{{ user ? user.phone : '' }}">
+                                        <div class="input-wrapper">
+                                            <input type="tel" class="form-control" name="phone" id="phone" placeholder="" value="{{ user ? user.phone : '' }}">
+                                            <label for="phone">Телефон</label>
                                         </div>
                                         <div class="mb-3">
                                             <input type="file" class="d-none" id="fileInput" name="fileInput" />
@@ -43,29 +44,38 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <select class="form-select required" name="service" required>
-                                                <option value="" disabled selected>Послуга</option>
+                                        <div class="input-wrapper">
+                                            <select class="form-select required" name="service" id="service" required>
+                                                <option value="" disabled selected></option>
                                                 {% for service in services %}
                                                     <option value="{{ service.id }}">{{ service.serviceName }}</option>
                                                 {% endfor %}
                                             </select>
+                                            <label for="service">Послуга</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control required" name="subject" placeholder="Предмет" required>
+                                        <div class="input-wrapper">
+                                            <input type="text" class="form-control required" name="subject" id="subject" placeholder="" required>
+                                            <label for="subject">Предмет</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control required" name="topic" placeholder="Тема" required>
+
+                                        <div class="input-wrapper">
+                                            <input type="text" class="form-control required" name="topic" id="topic" placeholder="" required>
+                                            <label for="topic">Тема</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <textarea class="form-control" name="wishes" rows="3" placeholder="Побажання"></textarea>
+
+                                        <div class="textarea-input-wrapper">
+                                            <textarea class="form-control" name="wishes" id="wishes" rows="3" placeholder=""></textarea>
+                                            <label class="textarea-input-wrapper" for="wishes">Побажання</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="date" class="form-control" name="deadline" placeholder="Бажаний дедлайн">
+
+                                        <div class="input-wrapper">
+                                            <input type="date" class="form-control" name="deadline" id="deadline" placeholder="">
+                                            <label for="deadline">Бажаний дедлайн</label>
                                         </div>
-                                        <div class="mb-3">
-                                            <input type="text" class="form-control required" name="telegram" placeholder="Ваш телеграм"
-                                                   value="{{ user ? user.telegram : '' }}">
+
+                                        <div class="input-wrapper">
+                                            <input type="text" class="form-control required" name="telegram" id="telegram" placeholder="" value="{{ user ? user.telegram : '' }}">
+                                            <label for="telegram">Ваш телеграм</label>
                                         </div>
                                     </div>
                                 </div>

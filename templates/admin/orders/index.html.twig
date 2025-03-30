@@ -40,8 +40,16 @@
                                             <p>{{ order.createdAt|date('H:i') }}</p>
                                         </td>
                                         <td>
-                                            <span class="badge {% if order.status == 1 %}bg-warning{% elseif order.status == 2 %}bg-success{% else %}bg-secondary{% endif %}">
-                                                {% if order.status == 1 %}Очікує{% elseif order.status == 2 %}Виконано{% endif %}
+                                            <span class="badge
+                                                {% if order.status == 1 %}bg-warning
+                                                {% elseif order.status == 2 %}bg-success
+                                                {% elseif order.status == 3 %}bg-danger
+                                                {% endif %}">
+
+                                                {% if order.status == 1 %}Очікує
+                                                {% elseif order.status == 2 %}Виконано
+                                                {% elseif order.status == 3 %}Скасовано
+                                                {% endif %}
                                             </span>
                                         </td>
                                         <td>
@@ -53,6 +61,9 @@
                                                     <i class="bi bi-check-circle"></i>
                                                 </button>
                                             </form>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelOrderModal{{ order.id }}">
+                                                <i class="bi bi-x-circle"></i>
+                                            </button>
                                         </td>
                                     </tr>
 
@@ -82,6 +93,27 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cancel Order -->
+                                    <div class="modal fade" id="cancelOrderModal{{ order.id }}" tabindex="-1" aria-labelledby="cancelOrderLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="cancelOrderLabel">Підтвердження скасування</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Ви впевнені, що хочете скасувати це замовлення?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нi</button>
+                                                    <form action="{{ path('admin_orders_cancel', { 'id': order.id }) }}" method="POST">
+                                                        <button type="submit" class="btn btn-danger">Скасувати</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>

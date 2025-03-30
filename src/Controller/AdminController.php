@@ -147,6 +147,22 @@ class AdminController extends AbstractController
         return $this->redirectToRoute('admin_orders');
     }
 
+    #[Route('/admin/orders/cancel/{id}', name: 'admin_orders_cancel', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function cancelOrder(int $id, EntityManagerInterface $entityManager, OrderRepository $orderRepository): Response
+    {
+        $order = $orderRepository->find($id);
+
+        if (!$order) {
+            throw $this->createNotFoundException('Замовлення не знайдено');
+        }
+
+        $order->setStatus(Order::STATUS_CANCELED);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_orders');
+    }
+
     #[Route('/admin/users', name: 'admin_users')]
     #[IsGranted('ROLE_ADMIN')]
     public function showUsers(UserRepository $userRepository): Response

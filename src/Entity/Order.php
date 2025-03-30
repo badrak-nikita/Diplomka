@@ -12,6 +12,7 @@ class Order
 {
     const STATUS_PENDING = 1;
     const STATUS_COMPLETED = 2;
+    const STATUS_CANCELED = 3;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
