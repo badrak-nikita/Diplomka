@@ -1,0 +1,93 @@
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-wrapper input,
+.input-wrapper textarea,
+.input-wrapper select {
+    width: 100%;
+    border-radius: 5px;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+    background-color: white;
+}
+
+.input-wrapper label {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    transition: all 0.3s ease-in-out;
+    background: white;
+    padding: 0 5px;
+    pointer-events: none;
+    border-radius: 5px;
+}
+
+.input-wrapper input:focus,
+.input-wrapper textarea:focus,
+.input-wrapper select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.input-wrapper input:focus + label,
+.input-wrapper textarea:focus + label,
+.input-wrapper select:focus + label,
+.input-wrapper input:not(:placeholder-shown) + label,
+.input-wrapper textarea:not(:placeholder-shown) + label,
+.input-wrapper select:not([value=""]):valid + label {
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+}
+
+.textarea-input-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.textarea-input-wrapper textarea {
+    width: 100%;
+    border-radius: 5px;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-size: 16px;
+    background-color: white;
+}
+
+.textarea-input-wrapper label {
+    position: absolute;
+    left: 12px;
+    top: 25%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #999;
+    transition: all 0.3s ease-in-out;
+    background: white;
+    padding: 0 5px;
+    pointer-events: none;
+    border-radius: 5px;
+}
+
+.textarea-input-wrapper textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+.textarea-input-wrapper textarea:focus + label,
+.textarea-input-wrapper textarea:not(:placeholder-shown) + label {
+    top: 0;
+    left: 10px;
+    font-size: 12px;
+    color: #007bff;
+}

@@ -1,0 +1,86 @@
+.table {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead tr {
+    background-color: #343a40;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table thead th {
+    padding: 15px;
+    border: none;
+}
+
+.price-row {
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+}
+
+.price-row:hover {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.02);
+}
+
+.order-btn {
+    display: none;
+    background-color: white;
+    color: #007bff;
+    border: 2px solid white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
+.order-btn:hover {
+    background-color: white;
+    color: #0056b3;
+    border-color: #0056b3;
+}
+
+.price-row:hover .order-btn {
+    display: inline-block;
+}
+
+.stats-box {
+    background: ghostwhite;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: left;
+}
+
+.stat-item {
+    display: flex;
+}
+
+.stat-item h3 {
+    margin: 0 5px;
+}
+
+.stat-item p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.stat-item i {
+    font-size: 40px;
+    color: #007bff;
+}
+
+.price-dependence {
+    margin-top: 40px;
+    padding: 20px;
+    background: ghostwhite;
+    border-radius: 10px;
+}
+
+.price-dependence h3 {
+    margin-bottom: 20px;
+}

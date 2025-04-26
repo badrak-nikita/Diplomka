@@ -1,0 +1,35 @@
+.profile-card, .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-links .social-btn {
+    color: #8094b7;
+    margin: 0 5px;
+    transition: color 0.3s;
+    font-size: 1.5rem;
+}
+
+.social-links .social-btn:hover {
+    color: #495057;
+}
+
+.profile-edit-img {
+    width: 100px;
+    height: 100px;
+}
+
+.btn-primary, .btn-danger {
+    margin: 0 5px;
+    padding: 0.25rem 0.5rem;
+}
+
+.col-form-label {
+    color: #677fa9;
+}
+
+.col-lg-4 {
+    color: #677fa9;
+    font-size: 16px;
+}
