@@ -2,45 +2,6 @@
 
 {% block body %}
     <link href="/assets/css/profile.css" rel="stylesheet">
-    <style>
-        .order-btn {
-            display: block; !important;
-            background-color: white;
-            color: #007bff;
-            border: 1px solid #ccc;
-            padding: 6px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .password-btn {
-            display: block; !important;
-            background-color: white;
-            color: red;
-            border: 1px solid #ccc;
-            padding: 6px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .order-btn:hover {
-            background-color: #0056b3;
-            transform: scale(1.05);
-            color: white;
-        }
-
-        .password-btn:hover {
-            background-color: red;
-            transform: scale(1.05);
-            color: white;
-        }
-    </style>
     {% include 'components/header.html.twig' %}
 
     <main class="main">
@@ -76,17 +37,19 @@
                     <div class="col-xl-8">
                         <div class="card shadow-sm border-0 rounded">
                             <div class="card-body">
-                                <ul class="nav nav-tabs nav-tabs-bordered">
-                                    <li class="nav-item">
-                                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Огляд</button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Редагування</button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Змiнити пароль</button>
-                                    </li>
-                                </ul>
+                                <div class="tabs-scroll-wrapper">
+                                    <ul class="nav nav-tabs nav-tabs-bordered flex-nowrap">
+                                        <li class="nav-item">
+                                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Огляд</button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Редагування</button>
+                                        </li>
+                                        <li class="nav-item">
+                                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Змiнити пароль</button>
+                                        </li>
+                                    </ul>
+                                </div>
 
                                 <div class="tab-content pt-3">
 

@@ -1,0 +1,189 @@
+/* Minimalist Circle Form */
+.circle-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.circle-form::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: #4CAF50;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.circle-form::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 150px;
+    height: 150px;
+    background: #4CAF50;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.1;
+}
+
+.circle-form form {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.circle-form input {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    margin: 0.7rem 0;
+    border: none;
+    background: #f8f9fa;
+    border-radius: 25px;
+    outline: none;
+    transition: background 0.3s;
+}
+
+.circle-form input:focus {
+    background: #eef1f4;
+}
+
+.circle-form button {
+    width: 100%;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    border: none;
+    border-radius: 25px;
+    background: #4CAF50;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.circle-form button:hover {
+    transform: scale(1.02);
+}
+
+/* Material Design Form */
+.material-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+
+.material-form .input-field {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.material-form input {
+    width: 100%;
+    padding: 0.8rem 0;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    outline: none;
+    transition: 0.2s;
+    background: transparent;
+}
+
+.material-form label {
+    position: absolute;
+    top: 0.8rem;
+    left: 0;
+    transition: 0.2s;
+    color: #999;
+}
+
+.material-form .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.material-form .bar:before {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 0;
+    position: absolute;
+    background: #2196F3;
+    transition: 0.2s;
+    left: 50%;
+}
+
+.material-form input:focus ~ .bar:before {
+    width: 100%;
+    left: 0;
+}
+
+.material-form input:focus ~ label,
+.material-form input:valid ~ label {
+    top: -1.2rem;
+    font-size: 0.8rem;
+    color: #2196F3;
+}
+
+.material-form button {
+    width: 100%;
+    padding: 0.8rem;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(33,150,243,0.3);
+    transition: 0.3s;
+}
+
+.material-form button:hover {
+    box-shadow: 0 4px 8px rgba(33,150,243,0.4);
+    transform: translateY(-1px);
+}
+
+#showRegisterBtn {
+    display: block;
+    margin: 15px auto 0 auto;
+    width: fit-content;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#showRegisterBtn:hover {
+    color: #0056b3;
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+#showLoginBtn {
+    display: block;
+    margin: 15px auto 0 auto;
+    width: fit-content;
+    color: #007bff;
+    cursor: pointer;
+    font-weight: 500;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+#showLoginBtn:hover {
+    color: #0056b3;
+    transform: scale(1.05);
+    text-decoration: none;
+}

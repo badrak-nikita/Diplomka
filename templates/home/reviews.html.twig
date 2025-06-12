@@ -2,49 +2,6 @@
 
 {% block body %}
     <link href="/assets/css/reviews.css" rel="stylesheet">
-    <style>
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pagination-list {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            gap: 8px;
-        }
-
-        .pagination-list li {
-            display: inline-block;
-        }
-
-        .pagination-list a {
-            display: block;
-            padding: 10px 14px;
-            text-decoration: none;
-            color: #007bff;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .pagination-list a:hover {
-            background-color: #007bff;
-            color: #fff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
-        }
-
-        .pagination-list .active a {
-            background-color: #007bff;
-            color: #fff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.8);
-            pointer-events: none;
-            font-weight: bold;
-        }
-    </style>
     {% include 'components/header.html.twig' %}
 
     <main class="main">
@@ -122,8 +79,15 @@
 
                         <form id="reviewForm">
                             <div class="mb-3">
-                                <textarea name="reviewText" id="reviewText" class="form-control" rows="4" placeholder="Ваш відгук"
-                                          {% if not isAuthenticated %}disabled title="Будь ласка, спочатку зайдiть в свiй акаунт"{% endif %} required></textarea>
+                                <textarea
+                                        name="reviewText"
+                                        id="reviewText"
+                                        class="form-control"
+                                        rows="4"
+                                        placeholder="{% if isAuthenticated %}Ваш відгук{% else %}Для того, щоб залишати відгуки, ви повинні бути авторизовані{% endif %}"
+                                        {% if not isAuthenticated %}disabled title="Будь ласка, спочатку зайдiть в свiй акаунт"{% endif %}
+                                        required
+                                ></textarea>
                             </div>
 
                             <div class="mb-3">

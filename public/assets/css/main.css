@@ -2328,3 +2328,22 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+.pricing-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.pricing-card h3,
+.pricing-card .price,
+.pricing-card .description,
+.pricing-card .features-list {
+  margin-bottom: 1rem;
+}
+
+.pricing-card .btn {
+  margin-top: auto;
+}

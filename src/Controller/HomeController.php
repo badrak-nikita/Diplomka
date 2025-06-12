@@ -29,6 +29,7 @@ class HomeController extends AbstractController
             $message->setUsername($name);
             $message->setEmail($email);
             $message->setMessage($messageText);
+            $message->setCreatedAt(new \DateTimeImmutable());
 
             $entityManager->persist($message);
             $entityManager->flush();

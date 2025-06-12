@@ -1,18 +1,6 @@
 {% block body %}
     <link href="/assets/css/header.css" rel="stylesheet">
-    <style>
-        .custom-button {
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .custom-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-        }
-    </style>
+    <link href="/assets/css/authorization.css" rel="stylesheet">
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="header-container container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
@@ -71,98 +59,107 @@
                     </ul>
                 </div>
             {% else %}
-                <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Вхід | Реєстрація</a>
+                <a class="btn-getstarted" href="#" data-bs-toggle="modal" data-bs-target="#authModal">Вхід</a>
             {% endif %}
 
         </div>
     </header>
 
-    <!-- Login modal -->
     <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="authModalLabel">Авторизація</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm" method="POST" action="{{ path('app_login') }}">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
-                                   id="email" name="email" value="{{ last_username|default('') }}" required>
-                            <label for="email">Електронна пошта</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control {% if error is defined and error %}is-invalid{% endif %}"
-                                   id="password" name="password" required>
-                            <label for="password">Пароль</label>
-                            {% if error is defined and error %}
-                                <div class="error-text">{{ error }}</div>
-                            {% endif %}
-                        </div>
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 400px;">
+            <div class="modal-content p-4">
 
-                        <button type="submit" class="btn btn-primary custom-button">Вхід</button>
-                    </form>
-                    <hr>
-                    <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#registerModal" data-bs-dismiss="modal">
-                        Перейти до реєстрації
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+                <form id="loginForm" class="material-form" method="POST" action="{{ path('app_login') }}" style="display: block;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                        <h2 style="margin: 0;">Авторизація</h2>
+                        <img src="/assets/img/icon.png" alt="logo" style="width: 50px; height: 50px;">
+                    </div>
 
-    <!-- Registration modal -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-sm-down">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Реєстрація</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="registerForm" method="POST" action="{{ path('app_register') }}">
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="registerEmail" name="email" required>
-                            <label for="registerEmail">Електронна пошта</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="registerPassword" name="password" required>
-                            <label for="registerPassword">Пароль</label>
-                        </div>
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control" id="registerConfirmPassword" name="confirm_password" required>
-                            <label for="registerConfirmPassword">Підтвердження паролю</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary custom-button">Зареєструватися</button>
-                        <hr>
-                        <button class="btn btn-link" data-bs-toggle="modal" data-bs-target="#authModal" data-bs-dismiss="modal">Назад до авторизації</button>
-                    </form>
-                </div>
+                    <div class="input-field">
+                        <input type="email" id="loginEmail" name="email" required value="{{ last_username|default('') }}" autocomplete="email" placeholder=" ">
+                        <label for="loginEmail">Email</label>
+                        <span class="bar"></span>
+                    </div>
+
+                    <div class="input-field">
+                        <input type="password" id="loginPassword" name="password" required autocomplete="current-password" placeholder=" ">
+                        <label for="loginPassword">Пароль</label>
+                        <span class="bar"></span>
+                    </div>
+
+                    {% if error is defined and error %}
+                        <div class="error-text mb-3">{{ error }}</div>
+                    {% endif %}
+
+                    <button type="submit">Увійти</button>
+
+                    <a id="showRegisterBtn">Перейти до реєстрації</a>
+                </form>
+
+                <form id="registerForm" class="circle-form" method="POST" action="{{ path('app_register') }}" style="display: none;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                        <h2 style="margin: 0;">Реєстрація</h2>
+                        <img src="/assets/img/icon.png" alt="logo" style="width: 50px; height: 50px;">
+                    </div>
+
+                    <input type="text" id="registerName" name="name" required autocomplete="name" placeholder="Iм'я">
+                    <span class="bar"></span>
+
+                    <input type="email" id="registerEmail" name="email" required autocomplete="email" placeholder="Email">
+                    <span class="bar"></span>
+
+                    <input type="password" id="registerPassword" name="password" required placeholder="Пароль">
+                    <span class="bar"></span>
+
+                    <input type="password" id="registerConfirmPassword" name="confirm_password" required placeholder="Підтвердження пароля">
+                    <span class="bar"></span>
+
+                    <div id="passwordError" class="error-text" style="display:none; margin-bottom: 10px;"></div>
+
+                    {% if error is defined and error %}
+                        <div class="error-text">{{ error }}</div>
+                    {% endif %}
+
+                    <button type="submit">Зареєструватись</button>
+
+                    <a id="showLoginBtn">Перейти до входу</a>
+                </form>
+
             </div>
         </div>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("registerForm").addEventListener("submit", function(event) {
-                var password = document.getElementById("registerPassword").value;
-                var confirmPassword = document.getElementById("registerConfirmPassword").value;
-                var errorText = document.getElementById("passwordError");
+            const showRegisterBtn = document.getElementById("showRegisterBtn");
+            const showLoginBtn = document.getElementById("showLoginBtn");
+            const loginForm = document.getElementById("loginForm");
+            const registerForm = document.getElementById("registerForm");
 
-                if (password !== confirmPassword) {
+            showRegisterBtn.addEventListener("click", function() {
+                loginForm.style.display = "none";
+                registerForm.style.display = "block";
+            });
+
+            showLoginBtn.addEventListener("click", function() {
+                registerForm.style.display = "none";
+                loginForm.style.display = "block";
+            });
+
+            const passwordInput = document.getElementById("registerPassword");
+            const confirmPasswordInput = document.getElementById("registerConfirmPassword");
+            const passwordError = document.getElementById("passwordError");
+
+            registerForm.addEventListener("submit", function(event) {
+                if (passwordInput.value !== confirmPasswordInput.value) {
                     event.preventDefault();
-                    if (!errorText) {
-                        var errorDiv = document.createElement("div");
-                        errorDiv.id = "passwordError";
-                        errorDiv.className = "error-text";
-                        errorDiv.innerText = "Паролi неiдентичнi";
-                        document.getElementById("registerConfirmPassword").after(errorDiv);
-                    }
-                } else if (errorText) {
-                    errorText.remove();
+                    passwordError.style.display = "block";
+                    passwordError.textContent = "Паролi неiдентичнi";
+                } else {
+                    passwordError.style.display = "none";
                 }
             });
+
             {% if error is defined and error %}
                 var authModal = new bootstrap.Modal(document.getElementById('authModal'));
                 authModal.show();

@@ -31,7 +31,12 @@
                                 {% for review in reviews %}
                                     <tr>
                                         <td>{{ review.id }}</td>
-                                        <td>{{ review.reviewText }}</td>
+                                        <td>
+                                            <div style="white-space: normal !important; word-break: break-word !important; max-width: 400px !important;">
+                                                {{ review.reviewText }}
+                                            </div>
+                                        </td>
+
                                         <td>{{ review.author.username }}</td>
                                         <td>{{ review.rating }}</td>
                                         <td>

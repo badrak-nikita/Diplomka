@@ -30,7 +30,7 @@
     border-radius: 12px;
     padding: 15px;
     margin-bottom: 20px;
-    align-items: center;
+    align-items: flex-start;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -74,4 +74,88 @@
 
 .review-text {
     font-size: 15px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 8px;
+}
+
+.pagination-list li {
+    display: inline-block;
+}
+
+.pagination-list a {
+    display: block;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: #007bff;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.pagination-list a:hover {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.6);
+}
+
+.pagination-list .active a {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.8);
+    pointer-events: none;
+    font-weight: bold;
+}
+
+/* 📱 Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+    .review-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .review-avatar-section,
+    .review-content-section {
+        flex: 100%;
+        padding: 10px 0;
+        text-align: left;
+    }
+
+    .review-avatar img {
+        width: 60px;
+        height: 60px;
+    }
+
+    .review-user {
+        font-size: 14px;
+    }
+
+    .review-text {
+        font-size: 14px;
+        word-break: break-word;
+    }
+
+    .review-content-section {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .pagination-list a {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
 }
