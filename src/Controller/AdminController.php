@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\Service;
 use App\Repository\ActivityRepository;
+use App\Repository\MessageRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ReviewRepository;
 use App\Repository\ServiceRepository;
@@ -230,6 +231,17 @@ class AdminController extends AbstractController
     {
         return $this->render('error_page.html.twig', [
             'code' => $code,
+        ]);
+    }
+
+    #[Route('/admin/messages', name: 'admin_messages')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function showMessages(MessageRepository $messageRepository): Response
+    {
+        $messages = $messageRepository->findBy([], ['createdAt' => 'DESC']);
+
+        return $this->render('admin/messages/index.html.twig', [
+            'messages' => $messages,
         ]);
     }
 }

@@ -1,0 +1,67 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block body %}
+    {% include 'admin/components/header.html.twig' %}
+    {% include 'admin/components/sidebar.html.twig' %}
+
+    <main id="main" class="main">
+
+        <div class="pagetitle d-flex justify-content-between align-items-center">
+            <h1>Листи</h1>
+        </div>
+
+        <section class="section dashboard">
+            <div class="row">
+
+                <div class="col-12">
+                    <div class="card recent-sales overflow-auto">
+
+                        <div class="card-body">
+
+                            <table class="table table-borderless datatable">
+                                <thead>
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Ім’я</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Повідомлення</th>
+                                    <th scope="col">Дата отримання</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for message in messages %}
+                                    <tr>
+                                        <td>{{ message.id }}</td>
+                                        <td>{{ message.username }}</td>
+                                        <td>{{ message.email }}</td>
+                                        <td>
+                                            <div style="white-space: normal !important; word-break: break-word !important; max-width: 400px !important;">
+                                                {{ message.message|e }}
+                                            </div>
+                                        </td>
+                                        <td>{{ message.createdAt|date('d-m-Y H:i') }}</td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="5" class="text-center">Листiв немає</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    {% include 'admin/components/footer.html.twig' %}
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+{% endblock %}

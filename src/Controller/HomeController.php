@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Message;
+use App\Service\TelegramService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,7 +19,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/contacts', name: 'app_contacts', methods: ['GET', 'POST'])]
-    public function contact(Request $request, EntityManagerInterface $entityManager): Response
+    public function contact(Request $request, EntityManagerInterface $entityManager, TelegramService $telegramService): Response
     {
         if ($request->isMethod('POST')) {
             $name = $request->request->get('name');
@@ -33,6 +34,27 @@ class HomeController extends AbstractController
 
             $entityManager->persist($message);
             $entityManager->flush();
+
+            // Telegram Bot
+            $fields = [
+                'Ім\'я' => $name,
+                'Email' => $email,
+                'Повiдомлення' => $messageText
+            ];
+
+            $textLines = ['<b>Новий лист!</b>', ''];
+
+            foreach ($fields as $label => $value) {
+                if (!empty(trim($value))) {
+                    $labelEscaped = str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $label);
+                    $valueEscaped = str_replace(['&', '<', '>'], ['&amp;', '&lt;', '&gt;'], $value);
+                    $textLines[] = "<b>$labelEscaped:</b> $valueEscaped";
+                }
+            }
+
+            $message = implode("\n", $textLines);
+
+            $telegramService->sendMessage($message);
 
             flash()->success('Ваше повідомлення успішно відправлено', (array)'Success');
 
