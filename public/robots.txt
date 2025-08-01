@@ -1,0 +1,5 @@
+# Разрешить всем поисковым системам доступ ко всему сайту
+User-agent: *
+Disallow:
+
+Sitemap: https://diplomka.com.ua/sitemap.xml
